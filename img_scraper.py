@@ -51,9 +51,9 @@ class ImgScraper:
                     response = requests.get(url)
                     f.write(response.content)
                     dls.append(url)
-                    print(url)
+                    print('Scraped: {0}'.format(url))
                 except AttributeError:
-                    pass
+                    print('Skipped: {0}'.format(url))
 
         print('\nImage scrapping complete ({0})'.format(len(dls)))
         print('\nImages saved to {0}'.format(os.path.abspath(self.destination)))
@@ -61,7 +61,8 @@ class ImgScraper:
 
 def main():
     url = sg.PopupGetText('Input the url you would like to scrape images from.')
-    ImgScraper(url, 'images').download()
+    dst = sg.PopupGetText('Destination folder relative to ' + os.getcwd())
+    ImgScraper(url, dst).download()
 
 
 if __name__ == '__main__':
